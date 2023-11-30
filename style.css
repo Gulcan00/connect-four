@@ -10,13 +10,13 @@ body {
 
 .board {
     display: grid;
-    width: 500px;
+    width: 550px;
     height: 500px;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(6, 1fr);
     border: 1px solid black;
-    gap: 8px;
-    padding: 16px;
+    gap: 12px;
+    padding: 20px;
     background-color: blue;
   }
   
@@ -54,6 +54,10 @@ body {
     align-items: center;
   } 
 
+  .winner h1 {
+    font-size: 4rem;
+  }
+
   .winner button {
     appearance: none;
     outline: none;
@@ -62,6 +66,7 @@ body {
     border-radius: 6px;
     background-color: lightblue;
     cursor: pointer;
+    font-size: 1.2rem;
   }
 
   .winner button:hover {
