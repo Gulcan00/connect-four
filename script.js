@@ -111,29 +111,25 @@ function GameController(
         }
 
         // Check for diagonal win (top left to bottom right)
-        for (let row = 0; row < 3; row++) {
-            for (let col = 0; col < 4; col++) {
-                const cell = board.getBoard()[row][col];
-                if (cell.getValue() !== 0) {
-                    if (cell.getValue() === board.getBoard()[row + 1][col + 1].getValue() &&
-                        cell.getValue() === board.getBoard()[row + 2][col + 2].getValue() &&
-                        cell.getValue() === board.getBoard()[row + 3][col + 3].getValue()) {
-                        return cell.getValue();
-                    }
+        for (let row = 0, col = 0; row < 3 && col < 4; row++, col++) {
+            const cell = board.getBoard()[row][col];
+            if (cell.getValue() !== 0) {
+                if (cell.getValue() === board.getBoard()[row + 1][col + 1].getValue() &&
+                    cell.getValue() === board.getBoard()[row + 2][col + 2].getValue() &&
+                    cell.getValue() === board.getBoard()[row + 3][col + 3].getValue()) {
+                    return cell.getValue();
                 }
             }
         }
 
         // Check for diagonal win (bottom left to top right)
-        for (let row = 3; row < 6; row++) {
-            for (let col = 0; col < 4; col++) {
-                const cell = board.getBoard()[row][col];
-                if (cell.getValue() !== 0) {
-                    if (cell.getValue() === board.getBoard()[row - 1][col + 1].getValue() &&
-                        cell.getValue() === board.getBoard()[row - 2][col + 2].getValue() &&
-                        cell.getValue() === board.getBoard()[row - 3][col + 3].getValue()) {
-                        return cell.getValue();
-                    }
+        for (let row = 5, col = 0; row > 2 && col < 4; row--, col++) {
+            const cell = board.getBoard()[row][col];
+            if (cell.getValue() !== 0) {
+                if (cell.getValue() === board.getBoard()[row - 1][col + 1].getValue() &&
+                    cell.getValue() === board.getBoard()[row - 2][col + 2].getValue() &&
+                    cell.getValue() === board.getBoard()[row - 3][col + 3].getValue()) {
+                    return cell.getValue();
                 }
             }
         }
@@ -144,13 +140,28 @@ function GameController(
 
     const playRound = (column) => {
         board.dropToken(column, activePlayer.token);
+
         winner = checkForWinner();
         if (winner) {
-            console.log(`Congratulations ${activePlayer.name}! You won!`);
+            if (winner === "tie") {
+                console.log("It's a tie!");
+            } else {
+                console.log(`Congratulations ${activePlayer.name}! You won!`);
+            }
+            board.printBoard();
             return;
         }
+
         switchActivePlayer();
+        printNewRound();
     };
 
+    // Start game
+    printNewRound();
 
+    return {
+        playRound,
+        getWinner,
+        getActivePlayer,
+    };
 }
