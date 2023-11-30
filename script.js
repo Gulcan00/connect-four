@@ -179,6 +179,8 @@ function ScreenController() {
     const game = GameController();
     const playerTurnDiv = document.querySelector(".turn");
     const boardDiv = document.querySelector(".board");
+    const winnerDiv = document.querySelector(".winner");
+    const newGameBtn = winnerDiv.querySelector("button");
 
     const updateScreen = () => {
         //Clear the board
@@ -208,10 +210,21 @@ function ScreenController() {
 
         game.playRound(selectedColumn);
         if (game.getWinner()) {
+            playerTurnDiv.style.display = "none";
             boardDiv.style.display = "none";
+            winnerDiv.style.display = "flex";
+            winnerDiv.querySelector("h1").textContent = game.getWinner() === "tie" ? "It's a tie!" : `🎉${game.getActivePlayer().name} won!🎉`;
         }
         updateScreen();
     }
+
+    newGameBtn.addEventListener('click', () => {
+        game.newGame();
+        boardDiv.style.display = "grid";
+        playerTurnDiv.style.display = "block";
+        winnerDiv.style.display = "none";
+        updateScreen();
+    });
 
     //Initialize screen
     updateScreen();

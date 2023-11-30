@@ -1,7 +1,17 @@
+body {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+}
+
 .board {
     display: grid;
-    height: 500px;
     width: 500px;
+    height: 500px;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(6, 1fr);
     border: 1px solid black;
@@ -35,4 +45,25 @@
     width: 80%;
     height: 80%;
     border-radius: 50%;
+  }
+
+  .winner {
+    display: none;
+    margin-top: 8px;
+    flex-direction: column;
+    align-items: center;
+  } 
+
+  .winner button {
+    appearance: none;
+    outline: none;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    background-color: lightblue;
+    cursor: pointer;
+  }
+
+  .winner button:hover {
+    background-color: lightgreen;
   }
