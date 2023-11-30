@@ -195,7 +195,7 @@ function ScreenController() {
                 cellBtn.classList.add('cell');
 
                 cellBtn.addEventListener('click', clickHandlerCell);
-                cellBtn.textContent = cell.getValue();
+                cellBtn.style.backgroundColor = cell.getValue() === 0 ? "white" : cell.getValue() === 1 ? "red" : "yellow";
                 cellBtn.dataset.column = index;
                 boardDiv.appendChild(cellBtn);
             })

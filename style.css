@@ -5,9 +5,9 @@
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(6, 1fr);
     border: 1px solid black;
-    gap: 2px;
-    padding: 2px;
-    background-color: yellow;
+    gap: 8px;
+    padding: 16px;
+    background-color: blue;
   }
   
   .cell {
@@ -17,6 +17,20 @@
     text-align: center;
     font-size: 2rem;
     border: 1px solid grey;
+    border-radius: 50%;
     background: lightyellow;
     cursor: pointer;
+    position: relative;
+  }
+
+  .cell::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    box-shadow: rgb(204, 219, 232) 3px 3px 6px 0px inset, rgba(0, 0, 0, 0.25) -3px -3px 6px 1px inset;
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
   }
