@@ -156,6 +156,13 @@ function GameController(
         printNewRound();
     };
 
+    const newGame = () => {
+        const boardArr = board.getBoard();
+        boardArr.forEach(row => row.forEach(cell => cell.addToken(0)));
+
+        winner = null;
+    }
+
     // Start game
     printNewRound();
 
@@ -163,5 +170,51 @@ function GameController(
         playRound,
         getWinner,
         getActivePlayer,
+        getBoard: board.getBoard,
+        newGame
     };
 }
+
+function ScreenController() {
+    const game = GameController();
+    const playerTurnDiv = document.querySelector(".turn");
+    const boardDiv = document.querySelector(".board");
+
+    const updateScreen = () => {
+        //Clear the board
+        boardDiv.textContent = "";
+
+        const board = game.getBoard();
+        const activePlayer = game.getActivePlayer();
+
+        playerTurnDiv.textContent = `${activePlayer.name}'s turn...`;
+
+        board.forEach(row => {
+            row.forEach((cell, index) => {
+                const cellBtn = document.createElement('button');
+                cellBtn.classList.add('cell');
+
+                cellBtn.addEventListener('click', clickHandlerCell);
+                cellBtn.textContent = cell.getValue();
+                cellBtn.dataset.column = index;
+                boardDiv.appendChild(cellBtn);
+            })
+        })
+    }
+
+
+    function clickHandlerCell(e) {
+        const selectedColumn = e.target.dataset.column;
+
+        game.playRound(selectedColumn);
+        if (game.getWinner()) {
+            boardDiv.style.display = "none";
+        }
+        updateScreen();
+    }
+
+    //Initialize screen
+    updateScreen();
+}
+
+ScreenController();
